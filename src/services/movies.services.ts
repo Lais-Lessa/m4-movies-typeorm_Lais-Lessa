@@ -26,8 +26,11 @@ export const movieCreateService =async (data: TMovie) => {
      const newMovie = await repository.save(movie);
 
      return newMovie;
-  };
-  export const readServices = async (params: PaginationParams) => {
+};
+
+
+export const readServices = async (params: PaginationParams) => {
+
     const repo = AppDataSource.getRepository(Movie);
     
     const { sort, order, page, perPage } = params;
@@ -51,12 +54,12 @@ export const movieCreateService =async (data: TMovie) => {
     const totalPages = Math.ceil(count / perPageVerify);
   
     return {
-      prevPage: pageNew > 1 ? createPaginationLink(pageNew - 1, perPageNew) : null, // Update perPageVerify to perPageNew
-      nextPage: pageNew < totalPages ? createPaginationLink(pageNew + 1, perPageNew) : null, // Update perPageVerify to perPageNew
+      prevPage: pageNew > 1 ? createPaginationLink(pageNew - 1, perPageNew) : null, 
+      nextPage: pageNew < totalPages ? createPaginationLink(pageNew + 1, perPageNew) : null, 
       count,
       data,
     };
-  };
+};
   
 const createPaginationLink = (page: number, perPage: number): string => {
   return `http://localhost:3000/movies?page=${page}&perPage=${perPage}`;
